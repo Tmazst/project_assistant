@@ -88,6 +88,9 @@ def inject_ser():
 @app.route("/", methods=['POST','GET'])
 def home():
 
+    with app.app_context():
+        db.create_all()
+
     return render_template("index.html")
 
 
