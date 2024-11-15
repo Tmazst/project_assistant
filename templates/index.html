@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <style>
+        .form-fields{
+            display:flex;
+            flex-direction:column;
+        }
+        .search-cont{background-color:;display: flex;justify-content:center;padding:10px}
+        .search-cont input{border: 1px solid grey;border-radius:10px;padding: 5px;}
+        /* section{ background-image:url(static/images/bg_service.png) } */
+    </style>
+<div style="width:;margin:0 auto;background-color:;">
+    <!-- <a id="contact_us"></a> -->
+    <section style="background-color:;" id="" class="services hidden">
+        <!-- Flash message -->
+
+        <div class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div><br>
+
+    </section>
+</div>
+
+
+
+<div class="intro-container">
+    <div class="img-nm-cont">
+        <div style="" class="topic-cont">
+            <div class="prf-img-cont general-flex"><img style="height:inherit" src="static/images/profile.jpg" /></div>
+            <div style="font-weight:400;color:rgb(95, 35, 100);font-size:27px;" class="topic">Thabo Maziya</div>
+            <div style="font-weight:600;font-size:20px;margin-top:-10px;color:rgb(95, 35, 100)" class="topic">Multimedia Specialist</div>
+            <div style="background-color: rgb(245, 208, 1);" class="line"></div>
+            <div class="general-flex"><a href="tel:+26879651471" ><img class="contact-icons" src="static/icons/phone-icon.png" /></a>
+                <a href="mailto:thabo@techxolutions.com" ><img class="contact-icons" src="static/icons/email-icon-prf.png" /></a><a href="https://wa.me/+26876412255" ><img style="height:35px" class="contact-icons" src="static/icons/whatsapp-icon-prf.png" /></a></div>
+        </div>
+    </div><br>
+    <div style="height:150px;width:100%;background-color:;"></div>
+    <div class="intro-content">
+        <div id="intro-content" style="color:rgb(58, 58, 58);font-size: 27px;" class="intro">
+            <span style="font-weight:600;font-size: 25px;color:rgb(58, 58, 58)">"</span>I provide comprehensive reviews and assistance to Developers & Designers on their Projects whether to identify common issues like broken links, missing images, and layout problems or any related assistance.
+            Receive detailed reports with screenshots and direct URLs for quick resolution. Let me lend a hand to enhance your project's quality!"
+        </div>
+    </div>
+    <a href="/project_form"> <div style="font-weight: 600;" class="btns">Hire Me</div></a>
+</div>
+<div class="about-contain">
+    <img style="height:inherit;border-radius: 15px;" src="static/images/4006574.jpg" />
+    <div style="" class="about-content-cont">
+        <div class="intro">
+            <div  style="color:#5f2364;font-weight:600">Reduce Project Deadline Headache, Ensure Quality and beat deadlines and Focus on what Matters the Most</div>
+        </div>
+    </div>
+</div>
+
+
+<section style="" class="container">
+
+    <div class="profile">
+        <div class="points">
+            <div class="subs">Common Mistakes Issues May include but not limited to;</div><br>
+            <div class="list-items general-flex"><span><img src="static/icons/tick-icon.png" /></span><span>Broken Links</span></div>
+            <div class="list-items general-flex"><span><img src="static/icons/tick-icon.png" /></span><span>Formatting Issues</span></div>
+            <div class="list-items general-flex"><span><img src="static/icons/tick-icon.png" /></span><span>Layout Problems (e.g., misaligned graphics, blurry or low-quality images)</span></div>
+            <div class="list-items general-flex"><span><img src="static/icons/tick-icon.png" /></span><span>Improper Alignment of Elements</span></div>
+            <div class="list-items general-flex"><span><img src="static/icons/tick-icon.png" /></span><span>Spelling and Grammar Mistakes</span></div>
+            <div class="list-items general-flex"><span><img src="static/icons/tick-icon.png" /></span><span>Overly Large Images Affecting Load Times</span></div><br>
+            <!-- <div>I will help you save time and resources by identifying these issues for you.</div> -->
+        </div>
+    </div>
+
+    <div  class="save-time-main">
+        
+        <div style="width:" class="save-time-cont">
+
+            <h1  style="color:#5f2364;font-weight:600">I can help you save time and resources by identifying these issues for you.</h1>
+           
+            <img id="save-time-img" style="height:400px" src="static/images/save-time.jpg"/>
+        </div>
+    </div>
+    <div style="font-size:12px">Photo by <a href="https://unsplash.com/@krakenimages?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">krakenimages</a> on <a href="https://unsplash.com/photos/man-in-white-dress-shirt-sitting-beside-woman-in-black-long-sleeve-shirt-376KN_ISplE?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
+
+</section><br><br>
+
+<section style="" class="container">
+    <img style="height:100px" src="static/icons/money-icon.png"/>
+    <h1  style="color:#686169;font-weight:600">I Accept Payments on these Platforms.</h1>
+    <div class="mny-icons">
+        <div class="pay-logos "><img style="height:90px" src="static/icons/googlepay-icon.png"/></div>
+        <div class="pay-logos"><img style="height:90px" src="static/icons/pp_h_rgb_logo_tn.jpg"/></div>
+        <div class="pay-logos"><img style="height:120px" src="static/icons/binance-logo-icon.webp"/></div>
+        <div class="pay-logos"><img style="height:130px" src="static/icons/747_moneygram.jpg"/></div>
+        <div class="pay-logos"><img style="height:120px" src="static/icons/western-union-icon.webp"/></div>
+        <div class="pay-logos"><img style="height:100px" src="static/icons/skrill-logo-icon.webp"/></div>
+    </div>
+</section>
+
+
+<script>
+    // quoteBtns.forEach(function(btn){
+
+
+    
+    const listIcon = document.querySelector("#list");
+    const blocksIcon = document.querySelector("#blocks");
+
+    listIcon.addEventListener("click", function(){
+
+        window.location.href = "/?icon=listview";
+        // listIcon.classList.add('active') ;
+
+    });
+
+    blocksIcon.addEventListener("click", function(){
+
+        window.location.href = "/?icon=blockview";
+        console.log("Blocks Icon CLicked");
+
+    });
+
+
+
+document.getElementById('scroll-left').addEventListener('click', function() {
+    const container = document.querySelector('#view-cont');
+    const imgContainer = document.querySelector('.scroll-container');
+    const firstImg = document.querySelector('img');
+    // if (!firstImg) return;
+    const imageWidth = firstImg.clientWidth;
+    
+    if (window.innerWidth >= 600){
+        container.scrollBy({
+            left: -600, // Adjust this value to match the height of visible area
+            behavior: 'smooth'
+        });
+    }else{
+        container.scrollBy({
+            left: -220, // Adjust this value to match the height of visible area
+            behavior: 'smooth'
+        });
+    }
+});
+
+document.getElementById('scroll-right').addEventListener('click', function() {
+    console.log("Testing");
+    const container = document.querySelector('#view-cont');
+    const imgContainer = document.querySelector('.scroll-container');
+    const firstImg = document.querySelector('img');
+    // if (!firstImg) return;
+    const imageWidth = firstImg.clientWidth;
+    
+    if (window.innerWidth >= 600){
+        container.scrollBy({
+            left: 600, // Adjust this value to match the height of visible area
+            behavior: 'smooth'
+        });
+    }else{
+        container.scrollBy({
+            left: 220, // Adjust this value to match the height of visible area
+            behavior: 'smooth'
+        });
+    }
+});
+
+
+</script>
+{% endblock %}

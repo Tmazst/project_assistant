@@ -1,0 +1,125 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div style="width:;margin:0 auto;background-color:;">
+    <!-- <a id="contact_us"></a> -->
+        <!-- Flash message -->
+        <div class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div><br>
+</div>
+
+<section id="" class="container">
+    <div class="form-container">
+        <div class="space-filler"></div>
+        <div><h3 style="border:none;margin: 0 auto;" class="sub-topic-details" >Projects Task(s) Briefing</h3><br>
+            <small class="ad-caption">"What tasks would make your workflow easier for me to take on?"</small>
+            <small></small>
+        </div>
+        <div class="line"></div><br>
+        
+        <form style="background-color: ;width:100%;"  _lpchecked="1" action="" method="post" enctype="multipart/form-data">
+            <br>
+            
+            <!-------Project Title--------->
+                {{ project_form.hidden_tag() }}
+                {{ project_form.proj_name.label(class="labels")}}<br>
+                {{ project_form.proj_name(class="form-control adj-width-60",placeholder="project name")}}
+                {% for error in project_form.proj_name.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+
+             <!-------Description--------->
+             <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
+                {{ project_form.description.label(class="labels")}}<br>
+                {{ project_form.description(style="min-height:100px", class="form-control adj-width-60", placeholder="Project Description in few words")}}
+                {% if project_form.description.errors %}
+                {% for error in project_form.description.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------proj_assistance--------->
+            <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
+                {{ project_form.proj_assistance.label(class="labels")}}<br>
+                {{ project_form.proj_assistance(style="min-height:100px", class="form-control adj-width-60", placeholder="Job Description")}}
+                {% if project_form.proj_assistance.errors %}
+                {% for error in project_form.proj_assistance.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------proj_duration_start--------->
+            <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
+                {{ project_form.proj_duration_start.label(class="labels")}}<br>
+                {{ project_form.proj_duration_start(class="form-control adj-width-60", placeholder="Start Date")}}
+                {% if project_form.proj_duration_start.errors %}
+                {% for error in project_form.proj_duration_start.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+
+            <!-------proj_duration_end--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ project_form.proj_duration_end.label(class="labels")}}<br>
+                {{ project_form.proj_duration_end(class="form-control adj-width-60",placeholder="End Date")}}
+                {% if project_form.proj_duration_end.errors %}
+                {% for error in project_form.proj_duration_end.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------company_name--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ project_form.company_name.label(class="labels")}}<br>
+                {{ project_form.company_name(class="form-control adj-width-60",placeholder="Name")}}
+                {% if project_form.company_name.errors %}
+                {% for error in project_form.company_name.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------Company Email--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ project_form.company_email.label(class="labels")}}<br>
+                {{ project_form.company_email(class="form-control adj-width-60",placeholder="Email")}}
+                {% if project_form.company_email.errors %}
+                {% for error in project_form.company_email.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------Attachment--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ project_form.attachment.label(class="labels")}}<br>
+                {{ project_form.attachment(class="form-control adj-width-60",placeholder="attachment")}}
+                {% if project_form.attachment.errors %}
+                {% for error in project_form.attachment.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div>
+                {{ project_form.submit(class="btns") }}
+                <!--<input class="btns" type="submit" value="Create Account" />-->
+            </div>
+
+        </form>
+</div>
+</section>
+
+{% endblock %}

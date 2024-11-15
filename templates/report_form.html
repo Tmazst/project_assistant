@@ -1,0 +1,161 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div style="width:;margin:0 auto;background-color:;">
+        <!-- Flash message -->
+        <div class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div><br>
+</div>
+
+<div class="container">
+    <div class="repo-container">
+        <h3 class="repo-title">
+            {{project.proj_title}}
+        </h3>
+        <div class="line2"></div>
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>{{project.timestamp.strftime("%d %b %y")}}</div>
+        </div>
+        <div class="repo-content"><span class="repo-print">{{project.description}}</span>
+        </div><br>
+    </div>
+</div>
+
+<section id="" class="container">
+    <div class="form-container">
+        <div class="space-filler"></div>
+        <div><h3 style="border:none;margin: 0 auto;" class="sub-topic-details" >Write Report</h3><br>
+            <small class="ad-caption">""</small>
+            <small></small>
+        </div>
+        <div class="line"></div><br>
+        
+        <form style="background-color: ;width:100%;"  _lpchecked="1" action="" method="post" enctype="multipart/form-data">
+            <br>
+            
+            <!-------Report--------->
+                {{ report_form.hidden_tag() }}
+                {{ report_form.report.label(class="labels")}}<br>
+                {{ report_form.report(class="form-control adj-width-60",placeholder="Report")}}
+                {% for error in report_form.report.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+
+             <!-------comments--------->
+             <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
+                {{ report_form.comments.label(class="labels")}}<br>
+                {{ report_form.comments(class="form-control adj-width-60")}}
+                {% if report_form.comments.errors %}
+                {% for error in report_form.comments.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------price--------->
+            <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
+                {{ report_form.price.label(class="labels")}}<br>
+                {{ report_form.price(class="form-control adj-width-60", placeholder="e.g. E205.00")}}
+                {% if report_form.price.errors %}
+                {% for error in report_form.price.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------pending--------->
+            <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
+                {{ report_form.pending.label(class="labels")}}<br>
+                {{ report_form.pending(class="form-control adj-width-60", placeholder="Pending")}}
+                {% if report_form.pending.errors %}
+                {% for error in report_form.pending.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+
+            <!-------pending_payment--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ report_form.pending_payment.label(class="labels")}}<br>
+                {{ report_form.pending_payment(class="form-control adj-width-60",placeholder="Pending Payment")}}
+                {% if report_form.pending_payment.errors %}
+                {% for error in report_form.pending_payment.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------status--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ report_form.status.label(class="labels")}}<br>
+                {{ report_form.status(class="form-control-radios adj-width-60",placeholder="Company Name")}}
+                {% if report_form.status.errors %}
+                {% for error in report_form.status.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------Date Finshed--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ report_form.date_finished.label(class="labels")}}<br>
+                {{ report_form.date_finished(class="form-control adj-width-60",placeholder="Finished")}}
+                {% if report_form.date_finished.errors %}
+                {% for error in report_form.date_finished.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+
+            <!-------Img 1--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ report_form.rep_img1.label(class="labels")}}<br>
+                {{ report_form.rep_img1(class="form-control adj-width-60",placeholder="Finished")}}
+                {% if report_form.rep_img1.errors %}
+                {% for error in report_form.rep_img1.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------Img 2--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ report_form.rep_img2.label(class="labels")}}<br>
+                {{ report_form.rep_img2(class="form-control adj-width-60",placeholder="Finished")}}
+                {% if report_form.rep_img2.errors %}
+                {% for error in report_form.rep_img2.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-------Img 3--------->
+            <div class="job-ad-group marginise-bottom">
+                {{ report_form.rep_img3.label(class="labels")}}<br>
+                {{ report_form.rep_img3(class="form-control adj-width-60",placeholder="Finished")}}
+                {% if report_form.rep_img3.errors %}
+                {% for error in report_form.rep_img3.errors %}
+                    <span class="span-error" >*{{error}}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <div>
+                {{ report_form.submit(class="btns") }}
+                <!--<input class="btns" type="submit" value="Create Account" />-->
+            </div>
+
+        </form>
+</div>
+</section>
+
+{% endblock %}

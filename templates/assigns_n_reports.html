@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <style>
+        .form-fields{
+            display:flex;
+            flex-direction:column;
+        }
+        .search-cont{background-color:;display: flex;justify-content:center;padding:10px}
+        .search-cont input{border: 1px solid grey;border-radius:10px;padding: 5px;}
+        /* section{ background-image:url(static/images/bg_service.png) } */
+    </style>
+<div style="width:;margin:0 auto;background-color:;">
+    <!-- <a id="contact_us"></a> -->
+    <section style="background-color:;" id="" class="services hidden">
+        <!-- Flash message -->
+
+        <div class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div><br>
+
+    </section>
+</div>
+
+
+<div class="container">
+    {% for assign in proj_assigns %}
+    <div class="repo-container">
+        {% set project_obj = project.query.get(assign.pid) %}
+        {% set report_obj = report.query.get( assignid.id) %}
+            <labels class="labels">Project Title</labels>
+            {% if project_obj.proj_title %}
+            <h3 class="repo-title">
+                {{project_obj.proj_title}}
+            </h3>
+            {% endif %}
+            {% if project_obj.timestamp %}
+        <div class="line2"></div>
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>{{project.timestamp.strftime("%d %b %y")}}</div>
+        </div>
+        {% endif %}
+        <labels class="labels">Task / Assignment</labels>
+        <div class="repo-content"><span class="repo-print">{{assign.assignment}}</span>
+        </div><br>
+        <div class="general-flex">
+            <div onclick="showHideFbtns()" id="report-wbtn" class="reportbtn">Report</div>
+            <img id="cont-handle" style="height:25px" src="static/icons/content-handle-icon.png" />
+        </div>
+        <!-- <h5 class="attachments">Report:</h5> -->
+        {% if report_obj %}
+        <div id="report" class="report-cont"><span class="repo-print">
+            {{report_obj.report}}
+        </span><br><br>
+            {% if report_obj.rep_img1 or report_obj.rep_img2 or report_obj.rep_img3 %}
+                <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+                    {% if report_obj.rep_img1  %}
+                    <div class="attachment">Attached.pdf</div>
+                    {% endif %}
+                    {% if report_obj.rep_img2  %}
+                    <div class="attachment">Attached.jpeg</div>
+                    {% endif %}
+                    {% if report_obj.rep_img3  %}
+                    <div class="attachment">Attached.jpeg</div>
+                    {% endif %}
+                </div><br>
+            </div>
+            {% endif %}
+        {% else %}
+        <div id="report" class="report-cont"><span class="repo-print">
+            No Reports Yet For This Assignment
+        </span>
+        {% endif %}
+        <br>
+        
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>Start Date:<br> 20 Oct 2024</div><div>Completed:<br> 20 Oct 2024</div><div>Finished:<br> 20 Oct 2024</div>
+        </div>
+        <a href="report_form?pid={{ser.dumps({'data':project.id})}}"> <div class="btns">Create Report</div></a>
+    </div>
+    {% endfor %}
+</div><br><br>
+
+
+<script>
+    // quoteBtns.forEach(function(btn){
+
+function showHideFbtns(){
+    let reprtCont = document.querySelector('#report');
+    let contHandle = document.querySelector('#cont-handle');
+    reprtCont.classList.toggle('show-it');
+    contHandle.classList.toggle('rotate-45');
+}
+
+
+
+</script>
+{% endblock %}

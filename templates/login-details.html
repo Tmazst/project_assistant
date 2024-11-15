@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .sel-tag{display:none}
+</style>
+<div style="z-index:1001" class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for  category, message in messages %}
+                <div class="flash-messages alert-{{category}}"> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</div>
+<section style="width:600px;background-color:aqua" id="" class="container">
+    <div class="login-container" >
+        
+        <div style="z-index:1000;min-width:350px" class="form-container">
+            <div class="space-filler"></div>
+            <div><p style="border:none" class="sub-topic-details" >Please check your email for login details and proceed!</p><br>
+            <a href="/login"><div class="btns">Proceed</div></a>
+        </div>
+    </div> 
+</section>
+
+{% endblock %}

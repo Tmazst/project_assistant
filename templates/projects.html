@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <style>
+        .form-fields{
+            display:flex;
+            flex-direction:column;
+        }
+        .search-cont{background-color:;display: flex;justify-content:center;padding:10px}
+        .search-cont input{border: 1px solid grey;border-radius:10px;padding: 5px;}
+        /* section{ background-image:url(static/images/bg_service.png) } */
+    </style>
+<div style="width:;margin:0 auto;background-color:;">
+    <!-- <a id="contact_us"></a> -->
+    <section style="background-color:;" id="" class="services hidden">
+        <!-- Flash message -->
+
+        <div class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div><br>
+
+    </section>
+</div>
+
+<div class="container">
+    {% if project %}
+    {% for project in projects %}
+    <div class="repo-container">
+            <labels class="labels">Project Title</labels>
+            {% if project.proj_title %}
+            <h3 class="repo-title">
+                {{project.proj_title}}
+            </h3>
+            {% endif %}
+        {% if project.timestamp %}
+        <div class="line2"></div>
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>{{project.timestamp.strftime("%d %b %y")}}</div>
+        </div>
+        {% endif %}
+        <labels class="labels"> Assistantance Required in Project </labels>
+        <div class="repo-content"><span class="repo-print">{{project.description}}</span>
+        </div><br>
+        {% endif %}
+        <br>
+        
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>Started:<br>{{project.timestamp}}</div><div>Completed:<br> Not Yet</div>
+        </div>
+        <a href="/assignment_form?pid={{ser.dumps({'data':project.id})}}"> <div class="btns">Assign Task</div></a>
+    </div>
+    {% endfor %}
+    {% else %}
+        <div class="repo-container">
+            <h3 class="repo-title">
+                You Have Not Created any Job with Me!
+            </h3>
+            <a href="/project_form"> <div class="btns">Create A Job</div></a>
+        </div>
+    {% endif %}
+
+</div><br><br>
+
+
+<script>
+// quoteBtns.forEach(function(btn){
+
+function showHideFbtns(){
+    let reprtCont = document.querySelector('#report');
+    let contHandle = document.querySelector('#cont-handle');
+    reprtCont.classList.toggle('show-it');
+    contHandle.classList.toggle('rotate-45');
+    }
+
+</script>
+{% endblock %}
