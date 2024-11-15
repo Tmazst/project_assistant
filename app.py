@@ -17,6 +17,7 @@ from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 import itsdangerous
 import random
 import string
+import json
 # import sqlite3
 # import pymysql
 # import pyodbc
@@ -43,6 +44,10 @@ application = app
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
+if os.path.exists('client.json'):
+    with open('client.json') as file:
+
+        creds = json.load(file)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -102,8 +107,8 @@ def send_email(user,passw):
         app.config["MAIL_PORT"] = 587
         app.config["MAIL_USE_TLS"] = True
         # Creditentials saved in environmental variables
-        em = app.config["MAIL_USERNAME"] ='pro.dignitron@gmail.com' # os.getenv("MAIL")  creds.get('email')
-        pwd = app.config["MAIL_PASSWORD"] = os.getenv("PWD")  #creds.get('gpass')
+        em = app.config["MAIL_USERNAME"] = creds.get('email') # os.getenv("MAIL")  'pro.dignitron@gmail.com'
+        pwd = app.config["MAIL_PASSWORD"] =   creds.get('gpass') #os.getenv("PWD")
         app.config["MAIL_DEFAULT_SENDER"] = "noreply@gmail.com"
 
         mail = Mail(app)
