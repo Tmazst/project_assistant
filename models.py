@@ -89,7 +89,7 @@ class Project_Reporting(db.Model,UserMixin):
     rep_img2 = db.Column(db.String(100))
     rep_img3 = db.Column(db.String(100))
     comments = db.Column(db.String(600))
-    price = db.Column(db.Float(255))
+    price = db.Column(db.Float)
     pending = db.Column(db.Boolean)
     pending_payment = db.Column(db.Boolean)
     status = db.Column(db.String(50))
@@ -104,7 +104,7 @@ class Invoice(db.Model,UserMixin):
     uid = db.Column(db.Integer,ForeignKey("user.id"))
     proj_id = db.Column(db.Integer,ForeignKey("project_reporting.id"))
     assignid = db.Column(db.Integer)
-    balance = db.Column(db.Float(255))
+    balance = db.Column(db.Float)
     timestamp=db.Column(db.DateTime)
     token = db.Column(db.String(255))
 
