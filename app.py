@@ -28,7 +28,7 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = "sdsdjfe832j2rj_32j"
 # app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///project_assistant_db.db"
-# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:tmazst41@localhost/eswatini_apps_db" #?driver=MySQL+ODBC+8.0+Driver"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://root:tmazst41@localhost/techtlnf_project_assistant" #?driver=MySQL+ODBC+8.0+Driver"
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://techtlnf_tmaz:!Tmazst41#@localhost/techtlnf_project_assistant"
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_recycle':280}
 app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
@@ -80,11 +80,12 @@ def process_file(file):
 #Password Encryption
 encrypt_password = Bcrypt()
 
+ser = Serializer(app.config['SECRET_KEY']) 
+
 #Populating variables across all routes
 @app.context_processor
 def inject_ser():
-    global ser
-    ser = Serializer(app.config['SECRET_KEY'])  # Define or retrieve the value for 'ser'
+     # Define or retrieve the value for 'ser'
 
     return dict(ser=ser)
 
@@ -268,18 +269,48 @@ def assigns_n_reports():
 
     project = Project_Description
     reports = Project_Reporting
-    proj_assigns = Assignment.query.filter_by(uid=current_user).all()
+    proj_assigns = Assignment.query.filter_by(uid=current_user.id).all()
+    access=False
 
-    return render_template("assigns_n_reports.html",reports=reports,proj_assigns=proj_assigns,project=project)
+    return render_template("assigns_n_reports.html",report=reports,proj_assigns=proj_assigns,project=project,access=access)
+
+@app.route("/all_assignments")
+def all_assignments():
+
+    auth = request.args.get('auth')
+    access=True
+
+    if auth == 'tmazst':
+        project = Project_Description
+        reports = Project_Reporting
+        proj_assigns = Assignment.query.all()
+    else:
+        return jsonify({'Error':'Wrong auth key'})
+
+    return render_template("assigns_n_reports.html",report=reports,proj_assigns=proj_assigns,project=project,access=access)
+
+
+@app.route("/project_assignments")
+@login_required
+def project_assignments():
+
+    project_info = Project_Description.query.get(ser.loads(request.args.get("pid"))['data'])
+
+    project = Project_Description
+    reports = Project_Reporting
+    proj_assigns = Assignment.query.filter_by(uid=current_user.id,pid=project_info.id).all()
+
+    return render_template("project_assignments.html",report=reports,proj_assigns=proj_assigns,project=project,project_info=project_info)
 
 
 @app.route("/project_reports")
 @login_required
-def project_reports():
+def projects():
 
-    project = Project_Description.query.filter_by(uid=current_user).all()
+    projects = Project_Description.query.filter_by(uid=current_user.id).all()
+    view_details = False
 
-    return render_template("projects.html",project=project)
+    return render_template("projects.html",projects=projects,view_details=view_details)
 
 
 @app.route("/send_email", methods=['POST','GET'])
@@ -387,7 +418,7 @@ def login():
                     print("No Verification Needed: ", user_login.verified)
                     req_page = request.args.get('next')
                     flash(f"Hey! {user_login.name.title()} You're Logged In!", "success")
-                    return redirect(req_page) if req_page else redirect(url_for('home'))
+                    return redirect(req_page) if req_page else redirect(url_for('projects'))
                     # if user_login:
                     # # if not user_login.verified:
                     #     return redirect(url_for('verification'))
@@ -414,21 +445,29 @@ def login():
 @app.route("/report_form", methods=['POST','GET'])
 def report():
 
-    project = None
+    project_assn = None
     report_form = ProjectReportingForm()
 
-    if request.args.get("pid"):
-        project = Project_Description.query.get(ser.loads(request.args.get("pid"))['data'])
+    if request.args.get("assid"):
+        project_assn =Assignment.query.get(ser.loads(request.args.get("assid"))['data'])
+        print("Assign: ", project_assn)
 
     #Pending PID
     if request.method == "POST":#and app_form.validate_on_submit()
-        project = Project_Description.query.get(ser.loads(request.args.get("pid"))['data'])
+        assignment=Assignment.query.get(ser.loads(request.args.get("assid"))['data'])
         report_info = Project_Reporting(
-             report=report_form.report.data, comments=report_form.comments.data,  price=report_form.price.data, 
-             pending=report_form.pending.data, pending_payment=report_form.pending_payment.data,  status=report_form.status.data,
-             date_finished=report_form.date_finished.data,uid=project.uid,pid=project.id,
-             url = report_form.url.data
+            report=report_form.report.data, comments=report_form.comments.data,  price=report_form.price.data, 
+            pending=report_form.pending.data, pending_payment=report_form.pending_payment.data,  status=report_form.status.data,
+            date_finished=report_form.date_finished.data,uid=assignment.uid,assignid=assignment.id
+            # url = report_form.url.data
         )
+
+        # report_info = Project_Reporting(
+        #      report=report_form.report.data, comments=report_form.comments.data,  price=report_form.price.data, 
+        #      pending=report_form.pending.data, pending_payment=report_form.pending_payment.data,  status=report_form.status.data,
+        #      date_finished=report_form.date_finished.data,uid=project.uid,pid=project.id,
+        #      url = report_form.url.data
+        # )
 
         if report_form.rep_img1.data:
             report_info.rep_img1 = process_file(report_form.rep_img1.data)
@@ -441,21 +480,27 @@ def report():
         db.session.commit()
         flash("Successful","success")
 
-    return render_template("report_form.html",report_form=report_form,project=project,usr=User)
+    return render_template("report_form.html",report_form=report_form,project_assn=project_assn,usr=User)
 
 
 @app.route("/assignment_form", methods=['POST','GET'])
 @login_required
 def assignment():
 
-    project = Project_Description.query.get(current_user.id)
+    
+    project = Project_Description.query.get(ser.loads(request.args.get("pid"))['data'])
+
+    if current_user.id != project.uid:
+        flash("Here are your projects listed below","error")
+
+        return redirect(url_for("projects"))
 
     asignment_form = AssignmentForm()
     #Pending PID
     if request.method == "POST" :#and app_form.validate_on_submit()
         assignment_info = Assignment(
-            assignment = asignment_form.name.data,url = asignment_form.url.data, status = asignment_form.status.data,
-            pid=project.id
+            assignment = asignment_form.assignment.data,url = asignment_form.url.data, status = asignment_form.status.data,
+            pid=project.id,timestamp=datetime.now(),uid=project.uid
         )
 
         if asignment_form.assign_img.data:
@@ -476,6 +521,27 @@ def pass_gen():
     
     return ''.join(secrets.choice(string.ascii_letters + string.digits + string.punctuation) for _ in range(12))
 
+@app.route('/all_jobs')
+def all_jobs():
+
+    projects = Project_Description.query.all()
+    if current_user.is_authenticated:
+        projects = Project_Description.query.filter_by(uid=current_user.id).all()
+    view_details = True
+
+    return render_template("projects.html",projects=projects,view_details=view_details)
+
+@app.route('/mini-dash')
+def minidashboard():
+
+    return render_template('mini-dashboard.html')
+
+    projects = Project_Description.query.all()
+    if current_user.is_authenticated:
+        projects = Project_Description.query.filter_by(uid=current_user.id).all()
+    view_details = True
+
+    return render_template("projects.html",projects=projects,view_details=view_details)
 
 @app.route("/project_form", methods=['POST','GET'])
 def project_form():
@@ -486,7 +552,7 @@ def project_form():
         project_info = Project_Description(
             proj_name = project_form.proj_name.data,description = project_form.description.data, proj_assistance = project_form.proj_assistance.data,
              proj_duration_start = project_form.proj_duration_start.data,
-            proj_duration_end = project_form.proj_duration_end.data,
+            proj_duration_end = project_form.proj_duration_end.data,timestamp=datetime.now(),
             company_name = project_form.company_name.data, company_email = project_form.company_email.data
         )
 
@@ -502,7 +568,7 @@ def project_form():
             
 
         #If user not yet registered
-        print("Check User: ",User.query.filter_by(email=project_form.company_email.data).first())
+        print("Check User1: ",User.query.filter_by(email=project_form.company_email.data).first())
         if not User.query.filter_by(email=project_form.company_email.data).first():
             #generate password
             passw = pass_gen()
@@ -516,15 +582,19 @@ def project_form():
             # assign user.id to project.uid for the current project 
             project = Project_Description.query.filter_by(company_email=user.email).first()
             project_info.uid = user.id
+            db.session.add(project_info)
             db.session.commit()
+            print("Registered User was not Reg: ",project_form.company_email.data, 'pass: ',passw)
             send_email(user,passw)
-            print("Registered User: ",project_form.company_email.data)
+            
             return redirect(url_for("login_details"))
         else:
             user = User.query.filter_by(email=project_form.company_email.data).first()
             project_info.uid = user.id
             db.session.add(project_info)
             db.session.commit()
+            print("Registered User was Reg: ",project_form.company_email.data)
+
         flash("Project Created Successfully","success")
         return redirect(url_for("assignment"))
 

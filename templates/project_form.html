@@ -18,8 +18,8 @@
 <section id="" class="container">
     <div class="form-container">
         <div class="space-filler"></div>
-        <div><h3 style="border:none;margin: 0 auto;" class="sub-topic-details" >Projects Task(s) Briefing</h3><br>
-            <small class="ad-caption">"What tasks would make your workflow easier for me to take on?"</small>
+        <div><h3 style="border:none;margin: 0 auto;" class="sub-topic-details" >Brief</h3><br>
+            <small class="ad-caption">"A Brief about what you will like me to help with in your project(s)?"</small>
             <small></small>
         </div>
         <div class="line"></div><br>
@@ -30,7 +30,7 @@
             <!-------Project Title--------->
                 {{ project_form.hidden_tag() }}
                 {{ project_form.proj_name.label(class="labels")}}<br>
-                {{ project_form.proj_name(class="form-control adj-width-60",placeholder="project name")}}
+                {{ project_form.proj_name(class="form-control adj-width-60",placeholder="e.g. WebCom Limited - Rebranding")}}
                 {% for error in project_form.proj_name.errors %}
                     <span class="span-error" >*{{error}}</span>
                 {% endfor %}
@@ -38,7 +38,7 @@
              <!-------Description--------->
              <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
                 {{ project_form.description.label(class="labels")}}<br>
-                {{ project_form.description(style="min-height:100px", class="form-control adj-width-60", placeholder="Project Description in few words")}}
+                {{ project_form.description(style="min-height:100px", class="form-control adj-width-60", placeholder="e.g. We are rebranding WebCom Limited entirely.")}}
                 {% if project_form.description.errors %}
                 {% for error in project_form.description.errors %}
                     <span class="span-error" >*{{error}}</span>
@@ -49,7 +49,7 @@
             <!-------proj_assistance--------->
             <div style="background-color: f8f95a;" class="job-ad-group marginise-bottom">
                 {{ project_form.proj_assistance.label(class="labels")}}<br>
-                {{ project_form.proj_assistance(style="min-height:100px", class="form-control adj-width-60", placeholder="Job Description")}}
+                {{ project_form.proj_assistance(style="min-height:100px", class="form-control adj-width-60", placeholder="e.g. I want you help me with Inputing text and copy into design files as it be provided. You will format the text according to specified styles, including font sizes, types, and line spacing, while maintaining consistency throughout the documents I will need to do.")}}
                 {% if project_form.proj_assistance.errors %}
                 {% for error in project_form.proj_assistance.errors %}
                     <span class="span-error" >*{{error}}</span>

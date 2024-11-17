@@ -35,12 +35,12 @@ class Login(FlaskForm):
 class ProjectForm(FlaskForm):
 
     proj_name = StringField('Project Title*', validators=[DataRequired()])
-    description = TextAreaField('Briefly Describe The Project*', validators=[DataRequired()])
-    proj_assistance = TextAreaField('What Assistance Do You Need?*', validators=[DataRequired()])
+    description = TextAreaField('Briefly Describe The Project*', validators=[DataRequired(),Length(max=100)])
+    proj_assistance = TextAreaField('What Assistance Do You Need?*', validators=[DataRequired(),Length(max=500)])
     proj_duration_start = DateField("Start Date")
     proj_duration_end = DateField("Projected End Date (Estimated)")
-    company_name = StringField('Name / Company Name', validators=[Optional()])
-    company_email = StringField('Email', validators=[Optional()])
+    company_name = StringField('Name / Company Name', validators=[DataRequired()])
+    company_email = StringField('Email', validators=[DataRequired()])
     attachment = FileField('Attachment (Optional)', validators=[Optional()])
     submit=SubmitField('submit')
 
@@ -59,10 +59,10 @@ class AssignmentForm(FlaskForm):
 class ProjectReportingForm(FlaskForm):
 
     report = TextAreaField('Report*', validators=[DataRequired()])
-    rep_img1 = FileField('Image', validators=[Optional()])
-    rep_img2 = FileField('Image', validators=[Optional()])
-    rep_img3 = FileField('Image', validators=[Optional()])
-    comments = TextAreaField('Comments', validators=[Optional()])
+    rep_img1 = FileField('Attachment 1', validators=[Optional()])
+    rep_img2 = FileField('Attachment 2', validators=[Optional()])
+    rep_img3 = FileField('Attachment 3', validators=[Optional()])
+    comments = TextAreaField('Report', validators=[Optional()])
     price = FloatField("Fee")
     pending = BooleanField('Work Still Pending?', validators=[Optional()])
     pending_payment = BooleanField('Payment Pending?', validators=[Optional()])
