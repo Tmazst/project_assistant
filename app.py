@@ -452,9 +452,8 @@ def send_prospects(name,email):
                 <table style="font-size: medium;flex-wrap:nowrap;background-color: #f1f1f1;width:100% !important" class="email-sign-cont ">
                     <tr style="font-size: medium;flex-wrap:nowrap;width:100% !important" >
                         <td style="vertical-align: top;" class="sign-column">
-                            <span style="font-size: large;font-weight: 600;color:#606060">Thabo Maziya,
+                            <span style="font-size: large;font-weight: 600;color:#606060">Thabo Maziya,</span>
                             <div class="mail-links"><a href="https://assistant.techxolutions.com" target="_blank">Your Project Assistant</a></div>
-                            <div class="mail-links"<span>Ezulwini, Eswatini</span></div>
                             <div class="mail-links"><img style="height:25px" src="https://techxolutions.com/images/email_icon.png"/><span>thabo@techxolutions.com</span></div>
                             <div class="mail-links"><img style="height:25px" src="https://techxolutions.com/images/telephone_icon.png"/><span>(+268) 7641 2255</span></div>
                            
