@@ -1095,7 +1095,7 @@ def project_form():
         #     print("Registered User was Reg: ",project_form.company_email.data)
 
         flash("Project Created Successfully","success")
-        return redirect(url_for("assignment"))
+        return redirect(url_for("projects"))
 
     return render_template("project_form.html",project_form=project_form)
 
