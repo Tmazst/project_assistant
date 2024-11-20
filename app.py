@@ -1043,11 +1043,12 @@ def minidashboard():
     return render_template("projects.html",projects=projects,view_details=view_details)
 
 @app.route("/project_form", methods=['POST','GET'])
+@login_required
 def project_form():
 
     project_form = ProjectForm()
 
-    if request.method == "POST" :#and app_form.validate_on_submit()
+    if request.method == "POST":#and app_form.validate_on_submit()
         project_info = Project_Description(
             proj_name = project_form.proj_name.data,description = project_form.description.data, proj_assistance = project_form.proj_assistance.data,
              proj_duration_start = project_form.proj_duration_start.data,
@@ -1067,32 +1068,32 @@ def project_form():
             
 
         #If user not yet registered
-        print("Check User1: ",User.query.filter_by(email=project_form.company_email.data).first())
-        if not User.query.filter_by(email=project_form.company_email.data).first():
-            #generate password
-            passw = pass_gen()
-            hashd_pwd = encrypt_password.generate_password_hash(passw).decode('utf-8')
-            sign_up_usr = User(name = project_form.company_name.data, email=project_form.company_email.data,password=hashd_pwd,confirm_password=hashd_pwd)
-            db.session.add(sign_up_usr)
-            db.session.commit()
+        # print("Check User1: ",User.query.filter_by(email=project_form.company_email.data).first())
+        # if not User.query.filter_by(email=project_form.company_email.data).first():
+        #     #generate password
+        #     passw = pass_gen()
+        #     hashd_pwd = encrypt_password.generate_password_hash(passw).decode('utf-8')
+        #     sign_up_usr = User(name = project_form.company_name.data, email=project_form.company_email.data,password=hashd_pwd,confirm_password=hashd_pwd)
+        #     db.session.add(sign_up_usr)
+        #     db.session.commit()
 
-            #Query user to get email and id
-            user = User.query.filter_by(email=project_form.company_email.data).first()
-            # assign user.id to project.uid for the current project 
-            project = Project_Description.query.filter_by(company_email=user.email).first()
-            project_info.uid = user.id
-            db.session.add(project_info)
-            db.session.commit()
-            print("Registered User was not Reg: ",project_form.company_email.data, 'pass: ',passw)
-            send_email(user,passw)
+        #     #Query user to get email and id
+        #     user = User.query.filter_by(email=project_form.company_email.data).first()
+        #     # assign user.id to project.uid for the current project 
+        #     project = Project_Description.query.filter_by(company_email=user.email).first()
+        #     project_info.uid = user.id
+        #     db.session.add(project_info)
+        #     db.session.commit()
+        #     print("Registered User was not Reg: ",project_form.company_email.data, 'pass: ',passw)
+        #     send_email(user,passw)
             
-            return redirect(url_for("login_details"))
-        else:
-            user = User.query.filter_by(email=project_form.company_email.data).first()
-            project_info.uid = user.id
-            db.session.add(project_info)
-            db.session.commit()
-            print("Registered User was Reg: ",project_form.company_email.data)
+        #     return redirect(url_for("login_details"))
+        # else:
+        #     user = User.query.filter_by(email=project_form.company_email.data).first()
+        #     project_info.uid = user.id
+        #     db.session.add(project_info)
+        #     db.session.commit()
+        #     print("Registered User was Reg: ",project_form.company_email.data)
 
         flash("Project Created Successfully","success")
         return redirect(url_for("assignment"))
