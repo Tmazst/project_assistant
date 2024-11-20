@@ -1053,7 +1053,6 @@ def project_form():
             proj_name = project_form.proj_name.data,description = project_form.description.data, proj_assistance = project_form.proj_assistance.data,
              proj_duration_start = project_form.proj_duration_start.data,
             proj_duration_end = project_form.proj_duration_end.data,timestamp=datetime.now(),
-            company_name = project_form.company_name.data, company_email = project_form.company_email.data
         )
 
         if project_form.attachment.data:
@@ -1139,10 +1138,6 @@ def project_form_edit():
             project_obj.proj_duration_end = project_form_edit.proj_duration_end.data 
         if project_form_edit.project_finished.data:
             project_obj.project_finished = project_form_edit.project_finished.data
-        if project_form_edit.company_name.data:
-            project_obj.company_name = project_form_edit.company_name.data
-        if project_form_edit.company_email.data:
-            project_obj.company_email = project_form_edit.company_email.data
         if project_form.attachment.data:
             project_obj.attachment = process_file(project_form.attachment.data)
 
