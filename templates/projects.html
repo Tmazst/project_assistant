@@ -10,12 +10,12 @@
         .search-cont input{border: 1px solid grey;border-radius:10px;padding: 5px;}
         /* section{ background-image:url(static/images/bg_service.png) } */
     </style>
-<div style="width:;margin:0 auto;background-color:;">
+<!-- <div style="width:;margin:0 auto;background-color:;"> -->
     <!-- <a id="contact_us"></a> -->
-    <section style="background-color:;" id="" class="">
+    <!-- <section style="background-color:;" id="" class=""> -->
         <!-- Flash message -->
 
-        <div class="flash-messages ">
+        <!-- <div class="flash-messages ">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for  category, message in messages %}
@@ -26,7 +26,7 @@
         </div><br>
 
     </section>
-</div>
+</div> -->
 
 <div class="container">
     {% if projects %}
@@ -66,11 +66,22 @@
     </div>
     {% endfor %}
     {% else %}
+        <div style="width:90%" class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <br>
         <div class="repo-container">
+            
             <h3 class="repo-title">
-                You Have Not Created any Job Yet!
+                You Have Not Assigned me any Job Yet!
             </h3>
-            <a href="/project_form"> <div style="margin:0 auto" class="btns">Create A Job</div></a>
+            <a href="/project_form"> <div style="margin:0 auto" class="btns">Assign A Job</div></a>
         </div>
     {% endif %}
 

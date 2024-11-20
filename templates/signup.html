@@ -18,11 +18,10 @@
   {% endwith %}
 </div>
 
-<div class="container">
+<div style="" class="container">
    
-  <div class="login-cont flex-general">
     
-      <form style="background-color:;flex-direction:column;z-index:1000;" class="" _lpchecked="1" action="" method="post">
+      <form style="flex-direction:column;z-index:1000;" class="form-cont" _lpchecked="1" action="" method="post">
         <div class="flex-general" style="flex-direction: column;align-items: flex-start;">
             <h1  style="align-self: flex-start !important;text-align: left;">Hello,<br><span style="font-size:medium;color:rgb(102, 102, 102);">Please Sign-up</span></h1>
             
@@ -56,27 +55,7 @@
                 {% endif %}
            </div>
 
-           <div class="group">
-                {{ register.contacts(class="form-control",placeholder="contacts")}}<br>
-                {% if register.contacts.errors %}
-                {% for error in register.contacts.errors %}<span class="span-error" >*{{error}}</span>
-                {% endfor %}
-                {% endif %}
-            </div>
 
-            <div class="group">
-                {{ register.address(class="form-control",placeholder="address")}}<br>
-                {% if register.address.errors %}
-                    {% for error in register.address.errors %}<span class="span-error" >*{{error}}</span>
-                    {% endfor %}
-                {% endif %}
-            </div>
-
-           <label style="color:coral;font-weight: 500;">Password Strength Checker</label>
-           <div class="power-container">
-            
-            <div id="power-point" class="power-point"></div>
-        </div><br>
             <div style="" class="group">
                  <div>{{ register.submit(class="btns") }}</div><br>
                  <!--<input class="btns" type="submit" value="Create Account" />-->
@@ -87,7 +66,7 @@
             </div>
 
       </form>
-  </div>
+
 </div>
 
 <script>

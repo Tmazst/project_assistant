@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <style>
+        .form-fields{
+            display:flex;
+            flex-direction:column;
+        }
+        .search-cont{background-color:;display: flex;justify-content:center;padding:10px}
+        .search-cont input{border: 1px solid grey;border-radius:10px;padding: 5px;}
+        /* section{ background-image:url(static/images/bg_service.png) } */
+    </style>
+<div style="width:;margin:0 auto;background-color:;">
+    <!-- <a id="contact_us"></a> -->
+    <section style="background-color:;" id="" class="services hidden">
+        <!-- Flash message -->
+
+        <div class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div><br>
+
+    </section>
+</div>
+
+
+<!-- Project  -->
+<div class="container">
+
+    <div class="repo-container">
+            <!-- <labels class="labels">Project Title</labels> -->
+            <h3 style="color:black" class="repo-title">
+                {{project_info.proj_name}}
+            </h3>
+            <div class="line2"></div><br>
+        {% if project_info.timestamp %}
+        
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>{{project_info.timestamp.strftime("%d %b %y")}}</div>
+        </div>
+        {% endif %}
+
+        <labels class="labels-extend"> project_info Description: </labels>
+        <div class="repo-content"><span class="repo-print">{{project_info.description}}</span>
+        </div><br>
+        <br>
+       
+        <labels class="labels-extend"> Assistantance Required in project_info: </labels>
+        <div class="repo-content"><span class="repo-print">{{project_info.proj_assistance}}</span>
+        </div><br>
+        <br>
+        
+        <!-- <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>Started:<br></div><div>Completed:<br> Not Yet</div>
+        </div> -->
+
+    </div>
+</div><br>
+
+<h2 style="width:max-content;margin:2px auto">Assignments</h2>
+<div class="container">
+    {% for assign in proj_assigns %}
+    <div class="repo-container">
+        {% set project_obj = project.query.get(assign.pid) %}
+        {% set report_obj = report.query.filter_by(assignid=assign.id).first() %}
+            <labels class="labels">Project Title</labels>
+            <h3 style="color:rgb(85, 25, 25)" class="repo-title">
+                {{project_obj.proj_name}}
+            </h3>
+            {% if project_obj.timestamp %}
+        <div class="line2"></div>
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>{{project.timestamp.strftime("%d %b %y")}}</div>
+        </div>
+        {% endif %}
+        <labels class="labels">Task / Assignment</labels>
+        <div class="repo-content"><span class="repo-print">{{assign.assignment}}</span>
+            <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+                <div>{{assign.timestamp}}</div>
+            </div>
+        </div><br>
+        <div class="general-flex">
+            <div onclick="showHideFbtns('{{assign.id}}')" id="report-wbtn-{{assign.id}}" class="reportbtn">Report</div>
+            <img id="cont-handle-{{assign.id}}" class="cont-handle" style="height:25px" src="static/icons/content-handle-icon.png" />
+        </div>
+        <!-- <h5 class="attachments">Report:</h5> -->
+        {% if report_obj %}
+        <div id="report-{{assign.id}}" class="report-cont"><span class="repo-print">
+            {{report_obj.comments}}
+        </span><br><br>
+            {% if report_obj.rep_img1 or report_obj.rep_img2 or report_obj.rep_img3 %}
+                <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+                    {% if report_obj.rep_img1  %}
+                    <div class="attachment">Attached.pdf</div>
+                    {% endif %}
+                    {% if report_obj.rep_img2  %}
+                    <div class="attachment">Attached.jpeg</div>
+                    {% endif %}
+                    {% if report_obj.rep_img3  %}
+                    <div class="attachment">Attached.jpeg</div>
+                    {% endif %}
+                </div><br>
+            </div>
+            {% endif %}
+        {% else %}
+        <div id="report-{{assign.id}}" class="report-cont"><span style="color:brown;text-align: center;" class="repo-print">
+            No Report Yet
+        </span>
+        </div>
+        {% endif %}
+        <br>
+        
+        <div style="flex-wrap: nowrap !important;" class="repo-details general-flex">
+            <div>Start Date:{{project_obj.timestamp}}</div><div>Completed: Not Yet</div>
+        </div>
+        {% if current_user.is_authenticated and current_user.role == "admin" %}
+        <a href="report_form?pid={{ser.dumps({'data':project_obj.id})}}"> <div class="btns">Create Report</div></a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div><br><br>
+
+
+<script>
+    // quoteBtns.forEach(function(btn){
+
+    function showHideFbtns(id){
+    // s = '#report-'+id
+    
+    let reprtCont = document.querySelector('#report-'+id);
+    let contHandle = document.querySelector('#cont-handle-'+id);
+    reprtCont.classList.toggle('show-it');
+    contHandle.classList.toggle('rotate-45');
+}
+
+
+
+</script>
+{% endblock %}

@@ -10,12 +10,12 @@
         .search-cont input{border: 1px solid grey;border-radius:10px;padding: 5px;}
         /* section{ background-image:url(static/images/bg_service.png) } */
     </style>
-<div style="width:;margin:0 auto;background-color:;">
+<!-- <div style="width:;margin:0 auto;background-color:;"> -->
     <!-- <a id="contact_us"></a> -->
-    <section style="background-color:;" id="" class="services hidden">
+    <!-- <section style="background-color:;" id="" class="services hidden"> -->
         <!-- Flash message -->
 
-        <div class="flash-messages ">
+        <!-- <div class="flash-messages ">
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for  category, message in messages %}
@@ -26,10 +26,11 @@
         </div><br>
 
     </section>
-</div>
+</div> -->
 
 
 <div class="container">
+    {% if proj_assigns  %}
     {% for assign in proj_assigns %}
     <div class="repo-container">
         {% set project_obj = project.query.get(assign.pid) %}
@@ -89,6 +90,26 @@
         {% endif %}
     </div>
     {% endfor %}
+    {% else %}
+
+        <div style="width:90%" class="flash-messages ">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for  category, message in messages %}
+                        <div class="flash-messages alert-{{category}}"> {{message}}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <br>
+        <div class="repo-container">
+            <h3 class="repo-title">
+                They Are Not Reports Yet!
+            </h3>
+            <a href="/project_form"> <div style="margin:0 auto" class="btns">Assign A Job</div></a>
+        </div>
+
+    {% endif %}
 </div><br><br>
 
 

@@ -12,8 +12,8 @@ class UserForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(),Email()])
     password = PasswordField('password', validators=[DataRequired(), Length(min=8, max=64)])
     confirm = PasswordField('confirm', validators=[DataRequired(),EqualTo('password'), Length(min=8, max=64)])
-    contacts = TelField('Contacts', validators=[DataRequired()])
-    address = StringField('Physical Address', validators=[DataRequired()])
+    contacts = TelField('Contacts')
+    address = StringField('Physical Address')
     image = FileField('Profile Image', validators=[FileAllowed(['jpg','png',"webp",'jpeg','avi'])])
 
     submit = SubmitField('Create Account!')
@@ -71,7 +71,33 @@ class ProjectReportingForm(FlaskForm):
     submit = SubmitField('submit')
 
 
+class SendEmailForm(FlaskForm):
+
+    name = StringField('Name', validators=[Length(max=120)])
+    emails = StringField('Emails', validators=[Length(max=120)])
+    submit = SubmitField('submit')
 
 
-    # def validate_email(self,email):
-    #     user = user.query.filter_by
+class Contact_Form(FlaskForm):
+
+    name = StringField('name')
+    email = StringField('email', validators=[DataRequired(),Email()])
+    contact = TelField('contact')
+    subject = StringField("subject")
+    message = TextAreaField("Message",validators=[Length(min=8, max=255)])
+    submit = SubmitField("Send")
+
+
+
+class Reset(FlaskForm):
+
+    new_password = PasswordField('New password', validators=[DataRequired(), Length(min=8, max=64)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password'), Length(min=8, max=64)])
+
+    reset = SubmitField('Reset')
+
+
+class Reset_Request(FlaskForm):
+
+    email = StringField('email', validators=[DataRequired(), Email()])
+    reset = SubmitField('Submit')
