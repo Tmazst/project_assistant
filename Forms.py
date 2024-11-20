@@ -39,8 +39,8 @@ class ProjectForm(FlaskForm):
     proj_assistance = TextAreaField('What Assistance Do You Need?*', validators=[DataRequired(),Length(max=500)])
     proj_duration_start = DateField("Start Date")
     proj_duration_end = DateField("Projected End Date (Estimated)")
-    company_name = StringField('Name / Company Name', validators=[DataRequired()])
-    company_email = StringField('Email', validators=[DataRequired()])
+    # company_name = StringField('Name / Company Name', validators=[DataRequired()])
+    # company_email = StringField('Email', validators=[DataRequired()])
     attachment = FileField('Attachment (Optional)', validators=[Optional()])
     submit=SubmitField('submit')
 
