@@ -1,5 +1,5 @@
 
-from flask import Flask,render_template,url_for,redirect,request,flash,jsonify
+from flask import Flask,render_template,url_for,redirect,request,flash,jsonify,send_from_directory
 from flask_login import login_user, LoginManager,current_user,logout_user, login_required
 from sqlalchemy.exc import IntegrityError
 from Forms import *
@@ -706,7 +706,13 @@ def projects():
 @app.route("/assitant_sitemap.xml")
 def sitemap():
     
-    return render_template(application.static_folder,"assistant_sitemap.xml")
+    return send_from_directory(application.static_folder,"assistant_sitemap.xml")
+
+
+@app.route("/robot.txt")
+def sitemap():
+    
+    return send_from_directory(application.static_folder,"robot.txt")
 
 # @app.route("/send_email", methods=['POST','GET'])
 # def email():
