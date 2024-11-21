@@ -703,7 +703,7 @@ def projects():
     return render_template("projects.html",projects=projects,view_details=view_details)
 
 
-@app.route("/assitant_sitemap")
+@app.route("/assitant_sitemap.xml")
 def sitemap():
     
     return render_template(app.static_folder,"assistant_sitemap.xml")
