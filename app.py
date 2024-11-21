@@ -706,7 +706,7 @@ def projects():
 @app.route("/assitant_sitemap")
 def sitemap():
     
-    return render_template("assistant_sitemap.xml")
+    return render_template(app.static_folder,"assistant_sitemap.xml")
 
 # @app.route("/send_email", methods=['POST','GET'])
 # def email():
