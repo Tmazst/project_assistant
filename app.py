@@ -706,13 +706,13 @@ def projects():
 @app.route("/assitant_sitemap.xml")
 def sitemap():
     
-    return send_from_directory(application.static_folder,"assistant_sitemap.xml")
+    return send_from_directory(app.static_folder,"assistant_sitemap.xml")
 
 
-@app.route("/robot.txt")
-def robot():
+# @app.route("/robot.txt")
+# def robot():
     
-    return send_from_directory(application.static_folder,"robot.txt")
+#     return send_from_directory(app.static_folder,"robot.txt")
 
 # @app.route("/send_email", methods=['POST','GET'])
 # def email():
