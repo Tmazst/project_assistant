@@ -703,6 +703,11 @@ def projects():
     return render_template("projects.html",projects=projects,view_details=view_details)
 
 
+@app.route("/assitant_sitemap")
+def sitemap():
+    
+    return render_template("assistant_sitemap.xml")
+
 # @app.route("/send_email", methods=['POST','GET'])
 # def email():
 #     app_name_rq = None
