@@ -710,7 +710,7 @@ def sitemap():
 
 
 @app.route("/robot.txt")
-def sitemap():
+def robot():
     
     return send_from_directory(application.static_folder,"robot.txt")
 
