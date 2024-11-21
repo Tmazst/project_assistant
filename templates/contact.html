@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div style="margin:40px auto; padding:10px; background-color:;max-width:600px;min-width: 320px;" class="engrave-contact">
+<div style="margin:40px auto; padding:; background-color:;max-width:600px;" class="engrave-contact">
 
     <div class="flash-messages">
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -14,8 +14,8 @@
         {% endwith %}
     </div>
 
-    <div style="border-radius:15px;padding:25px;width:100%;border:1px solid #f3f2f2"  class="">
-        <h3 style="text-align: left;padding-left:45px">Inquiry Form</h3><br>
+    <div style="border-radius:15px;padding:10px;width:100%;border:1px solid #f3f2f2"  class="f-cont">
+        <h3 style="text-align: left;">Inquiry Form</h3><br>
         <form class="form-control-techx flex-just-align " style="width:100%;flex-direction:column" action = "/contact" method="post" >
             {{contact_form.hidden_tag()}}
             <!-- <div  class="hidden contact-nester" style="display: flex;width:90%;flex-direction:column"> -->

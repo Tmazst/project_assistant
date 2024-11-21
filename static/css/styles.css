@@ -2600,6 +2600,13 @@ to{
     margin:0 auto !important;
 }
 
+.f-cont{border:none !important;padding:5px}
+
+.engrave-contact{
+    width:320px !important;
+    
+}
+
 .nav-link{
     transition: all 0.4s ease;
 }
