@@ -703,10 +703,10 @@ def projects():
     return render_template("projects.html",projects=projects,view_details=view_details)
 
 
-@app.route("/assitant_sitemap.xml")
+@app.route("/sitemap.xml")
 def sitemap():
     
-    return send_from_directory(app.static_folder,"assistant_sitemap.xml")
+    return send_from_directory(app.static_folder,"sitemap.xml")
 
 
 # @app.route("/robot.txt")
